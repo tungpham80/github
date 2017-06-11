@@ -1,0 +1,42 @@
+
+
+ 
+
+
+ permit esp host 208.4.61.5 host 52.45.121.218
+ permit udp host 208.4.61.5 eq isakmp host 52.45.121.218 eq isakmp
+ 
+ permit icmp host 208.4.61.4 host 52.45.121.218
+
+ permit esp host 208.4.61.5 host 52.45.121.218
+ permit icmp host 52.45.121.218 host 208.4.61.4
+ permit icmp host 52.45.121.218 host 208.4.61.5
+ permit esp host 52.45.121.218 host 208.4.61.5
+ permit udp host 52.45.121.218 eq isakmp host 208.4.61.5 eq isakmp
+ permit esp host 52.45.121.218 host 208.4.61.5
+ permit udp host 52.45.121.218 eq isakmp host 208.4.61.5 eq isakmp
+ permit icmp host 52.45.121.218 host 208.4.61.4
+ permit icmp host 52.45.121.218 host 208.4.61.5
+
+ 
+ 
+ CHN-INET-RTR01#sh access-lists in-from-internet | include 52.45.121.218
+    1431 permit icmp host 52.45.121.218 host 208.4.61.4 (5 matches)
+    1447 permit icmp host 52.45.121.218 host 208.4.61.5
+    3591 permit esp host 52.45.121.218 host 208.4.61.5 (5030325 matches)
+    3601 permit udp host 52.45.121.218 eq isakmp host 208.4.61.5 eq isakmp (79141 matches)
+CHN-INET-RTR01#sh access-lists out-to-internet | include 52.45.121.218
+    1431 permit icmp host 208.4.61.4 host 52.45.121.218 (5 matches)
+    1437 permit icmp host 208.4.61.5 host 52.45.121.218
+    5012 permit udp host 208.4.61.5 eq isakmp host 52.45.121.218 eq isakmp (45679 matches)
+    5021 permit esp host 208.4.61.5 host 52.45.121.218 (5032447 matches)
+CHN-INET-RTR01#sh access-lists in-from-vendor-b2b | include 52.45.121.218
+    101 permit icmp host 208.4.61.4 host 52.45.121.218
+    107 permit icmp host 208.4.61.5 host 52.45.121.218
+    150 permit esp host 208.4.61.5 host 52.45.121.218
+    156 permit udp host 208.4.61.5 eq isakmp host 52.45.121.218 eq isakmp
+CHN-INET-RTR01#sh access-lists out-to-vendor-b2b | include 52.45.121.218
+    35 permit icmp host 52.45.121.218 host 208.4.61.4 (5 matches)
+    43 permit icmp host 52.45.121.218 host 208.4.61.5
+    155 permit esp host 52.45.121.218 host 208.4.61.5 (5030383 matches)
+    157 permit udp host 52.45.121.218 eq isakmp host 208.4.61.5 eq isakmp (78332 matches)

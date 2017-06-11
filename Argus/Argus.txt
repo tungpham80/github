@@ -1,0 +1,153 @@
+
+CHN-INET-RTR01: 
+ip access-list ext in-from-internet
+    551 permit icmp host 162.249.24.5 host 208.4.61.4 
+    552 permit icmp host 162.249.24.5 host 208.4.61.5
+    553 permit esp host 162.249.24.5 host 208.4.61.5 
+    554 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp 
+
+ip access-list ext out-to-internet 
+    3551 permit icmp host 208.4.61.4 host 162.249.24.5 
+    3552 permit icmp host 208.4.61.5 host 162.249.24.5
+    3553 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp 
+    3554 permit esp host 208.4.61.5 host 162.249.24.5 
+
+ip access-list ext in-from-vendor-b2b 
+    200 permit icmp host 208.4.61.4 host 162.249.24.5
+    201 permit icmp host 208.4.61.5 host 162.249.24.5
+    202 permit esp host 208.4.61.5 host 162.249.24.5
+    203 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+
+ip access-list ext out-to-vendor-b2b 
+    50 permit icmp host 162.249.24.5 host 208.4.61.4 
+    51 permit icmp host 162.249.24.5 host 208.4.61.5
+    52 permit esp host 162.249.24.5 host 208.4.61.5 
+    53 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+ 
+ip access-list ext in-from-vendor-b2b-intf 
+    90 permit esp host 208.4.61.5 host 162.249.24.5
+    91 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+    92 permit icmp host 208.4.61.4 host 162.249.24.5
+    93 permit icmp host 208.4.61.5 host 162.249.24.5
+
+ip access-list ext out-to-vendor-b2b-intf 
+    50 permit esp host 162.249.24.5 host 208.4.61.5
+    51 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+    52 permit icmp host 162.249.24.5 host 208.4.61.4
+    53 permit icmp host 162.249.24.5 host 208.4.61.5
+
+CHN-INET-RTR02: 
+
+ip access-list ext in-from-internet
+    221 permit icmp host 162.249.24.5 host 208.4.61.4 
+    222 permit icmp host 162.249.24.5 host 208.4.61.5
+    223 permit esp host 162.249.24.5 host 208.4.61.5 
+    224 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp 
+
+ip access-list ext out-to-internet 
+    421 permit icmp host 208.4.61.4 host 162.249.24.5 
+    422 permit icmp host 208.4.61.5 host 162.249.24.5
+    423 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp 
+    424 permit esp host 208.4.61.5 host 162.249.24.5 
+
+ip access-list ext in-from-vendor-b2b 
+    200 permit icmp host 208.4.61.4 host 162.249.24.5
+    201 permit icmp host 208.4.61.5 host 162.249.24.5
+    202 permit esp host 208.4.61.5 host 162.249.24.5
+    203 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+
+ip access-list ext out-to-vendor-b2b 
+    200 permit icmp host 162.249.24.5 host 208.4.61.4 
+    201 permit icmp host 162.249.24.5 host 208.4.61.5
+    202 permit esp host 162.249.24.5 host 208.4.61.5 
+    203 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+ 
+ip access-list ext in-from-vendor-b2b-intf 
+    91 permit esp host 208.4.61.5 host 162.249.24.5
+    92 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+    93 permit icmp host 208.4.61.4 host 162.249.24.5
+    94 permit icmp host 208.4.61.5 host 162.249.24.5
+
+ip access-list ext out-to-vendor-b2b-intf 
+    50 permit esp host 162.249.24.5 host 208.4.61.5
+    51 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+    52 permit icmp host 162.249.24.5 host 208.4.61.4
+    53 permit icmp host 162.249.24.5 host 208.4.61.5
+***************
+
+Back out Plan: Reverse all the change. NO on the ACL.
+
+CHN-INET-RTR01: 
+ip access-list ext in-from-internet
+   no 551 permit icmp host 162.249.24.5 host 208.4.61.4 
+   no 552 permit icmp host 162.249.24.5 host 208.4.61.5
+   no 553 permit esp host 162.249.24.5 host 208.4.61.5 
+   no 554 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp 
+
+ip access-list ext out-to-internet 
+   no 3551 permit icmp host 208.4.61.4 host 162.249.24.5 
+   no 3552 permit icmp host 208.4.61.5 host 162.249.24.5
+   no 3553 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp 
+   no 3554 permit esp host 208.4.61.5 host 162.249.24.5 
+
+ip access-list ext in-from-vendor-b2b 
+  no 200 permit icmp host 208.4.61.4 host 162.249.24.5
+  no 201 permit icmp host 208.4.61.5 host 162.249.24.5
+  no 202 permit esp host 208.4.61.5 host 162.249.24.5
+  no 203 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+
+ip access-list ext out-to-vendor-b2b 
+  no 50 permit icmp host 162.249.24.5 host 208.4.61.4 
+  no 51 permit icmp host 162.249.24.5 host 208.4.61.5
+  no 52 permit esp host 162.249.24.5 host 208.4.61.5 
+  no 53 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+ 
+ip access-list ext in-from-vendor-b2b-intf 
+  no 90 permit esp host 208.4.61.5 host 162.249.24.5
+  no 91 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+  no 92 permit icmp host 208.4.61.4 host 162.249.24.5
+  no 93 permit icmp host 208.4.61.5 host 162.249.24.5
+
+ip access-list ext out-to-vendor-b2b-intf 
+  no 50 permit esp host 162.249.24.5 host 208.4.61.5
+  no 51 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+  no 52 permit icmp host 162.249.24.5 host 208.4.61.4
+  no 53 permit icmp host 162.249.24.5 host 208.4.61.5
+
+CHN-INET-RTR02: 
+
+ip access-list ext in-from-internet
+ no 221 permit icmp host 162.249.24.5 host 208.4.61.4 
+ no 222 permit icmp host 162.249.24.5 host 208.4.61.5
+ no 223 permit esp host 162.249.24.5 host 208.4.61.5 
+ no 224 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp 
+
+ip access-list ext out-to-internet 
+ no 421 permit icmp host 208.4.61.4 host 162.249.24.5 
+ no 422 permit icmp host 208.4.61.5 host 162.249.24.5
+ no 423 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp 
+ no 424 permit esp host 208.4.61.5 host 162.249.24.5 
+
+ip access-list ext in-from-vendor-b2b 
+ no 200 permit icmp host 208.4.61.4 host 162.249.24.5
+ no 201 permit icmp host 208.4.61.5 host 162.249.24.5
+ no 202 permit esp host 208.4.61.5 host 162.249.24.5
+ no 203 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+
+ip access-list ext out-to-vendor-b2b 
+ no 200 permit icmp host 162.249.24.5 host 208.4.61.4 
+ no 201 permit icmp host 162.249.24.5 host 208.4.61.5
+ no 202 permit esp host 162.249.24.5 host 208.4.61.5 
+ no 203 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+ 
+ip access-list ext in-from-vendor-b2b-intf 
+  no  91 permit esp host 208.4.61.5 host 162.249.24.5
+  no  92 permit udp host 208.4.61.5 eq isakmp host 162.249.24.5 eq isakmp
+  no  93 permit icmp host 208.4.61.4 host 162.249.24.5
+  no  94 permit icmp host 208.4.61.5 host 162.249.24.5
+
+ip access-list ext out-to-vendor-b2b-intf 
+   no 50 permit esp host 162.249.24.5 host 208.4.61.5
+   no 51 permit udp host 162.249.24.5 eq isakmp host 208.4.61.5 eq isakmp
+   no 52 permit icmp host 162.249.24.5 host 208.4.61.4
+   no 53 permit icmp host 162.249.24.5 host 208.4.61.5
